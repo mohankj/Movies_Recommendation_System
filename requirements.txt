@@ -1,2 +1,4 @@
 pip
 streamlit
+pandas
+numpy
