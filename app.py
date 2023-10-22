@@ -1,6 +1,9 @@
 import streamlit as st
 import pickle
 import requests
+from joblib import load
+
+
 
 
 def recommend(movie):
@@ -14,7 +17,8 @@ def recommend(movie):
 
 
 st.header('Movie Recommender System')
-movies = pickle.load(open('movie_list.pkl','rb'))
+# movies = pickle.load(open('movie_list.pkl','rb'))
+movies = load('movie_list.pkl')
 similarity = pickle.load(open('similarity.pkl','rb'))
 
 movie_list = movies['title'].values
