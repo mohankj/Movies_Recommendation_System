@@ -2,6 +2,16 @@ import streamlit as st
 import pickle
 import requests
 
+def download_from_gdrive(file_id, dest_path):
+    print("Downloading similarity.pkl...")
+    URL = f"https://drive.google.com/uc?export=download&id={file_id}"
+    response = requests.get(URL, stream=True)
+    with open(dest_path, "wb") as f:
+        for chunk in response.iter_content(chunk_size=32768):
+            if chunk:
+                f.write(chunk)
+
+download_from_gdrive("1iZa3ivy_nx3kUKco34RiHk5Q4GW-oR5K", "similarity.pkl")
 
 
 
