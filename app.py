@@ -2,34 +2,6 @@ import streamlit as st
 import pickle
 import requests
 
-def download_file_from_google_drive(id, destination):
-    URL = "https://drive.google.com/uc?export=download"
-
-    session = requests.Session()
-    response = session.get(URL, params={'id': id}, stream=True)
-    
-    def get_confirm_token(response):
-        for key, value in response.cookies.items():
-            if key.startswith('download_warning'):
-                return value
-        return None
-
-    token = get_confirm_token(response)
-
-    if token:
-        params = {'id': id, 'confirm': token}
-        response = session.get(URL, params=params, stream=True)
-
-    with open(destination, "wb") as f:
-        for chunk in response.iter_content(32768):
-            if chunk:
-                f.write(chunk)
-
-# Example usage
-download_file_from_google_drive("1iZa3ivy_nx3kUKco34RiHk5Q4GW-oR5K", "similarity.pkl")
-
-
-
 def recommend(movie):
     index = movies[movies['title'] == movie].index[0]
     distances = sorted(list(enumerate(similarity[index])), reverse=True, key=lambda x: x[1])
